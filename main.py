@@ -13,6 +13,7 @@ from model.small_cnn import SmallCNN
 from model.gruffalo_model import GruffaloModel
 from model.vgg_like import VggLike
 from model.vgg16 import Vgg16
+from model.xception import Xception
 
 
 if __name__ == "__main__":
@@ -27,8 +28,9 @@ if __name__ == "__main__":
         yval = y[test_idx]
         #model = SmallCNN()
         #model = GruffaloModel()
-        model = VggLike()
-        #model = Vgg16(freeze_leyer=15)
+        #model = VggLike()
+        model = Vgg16(freeze_leyer=15)
+        #model = Xception()
         optimizer = Adam(lr=0.001, decay=0.0)
         #optimizer = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(loss='binary_crossentropy', optimizer=optimizer,
@@ -63,7 +65,6 @@ if __name__ == "__main__":
 
         xtest, df_test = make_df("./data/test.json", "test")
         pred_test = model.predict(xtest).reshape(-1)
-        #pred_test = pred_test.reshape((pred_test.shape[0]))
         result.append(pred_test)
     pd.DataFrame({"acc": acc, "loss": loss}).to_csv("accloss.csv", index=False)
     pd.DataFrame(result).to_csv('result.csv', index=False)
