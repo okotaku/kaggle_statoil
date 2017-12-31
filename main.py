@@ -9,8 +9,10 @@ from keras.preprocessing.image import ImageDataGenerator
 np.random.seed(7)
 
 from make_df import make_df
-from model.small_cnn import SmallCNN
+from model.densenet_like import DenseLike
 from model.gruffalo_model import GruffaloModel
+from model.resnet_like import ResnetLike
+from model.small_cnn import SmallCNN
 from model.vgg_like import VggLike
 from model.vgg16 import Vgg16
 from model.xception import Xception
@@ -26,17 +28,19 @@ if __name__ == "__main__":
         ytr = y[train_idx]
         xval = x[test_idx]
         yval = y[test_idx]
-        #model = SmallCNN()
+        model = DenseLike()
         #model = GruffaloModel()
+        #model = ResnetLike()
+        #model = SmallCNN()
         #model = VggLike()
-        model = Vgg16(freeze_leyer=15)
+        #model = Vgg16(freeze_leyer=15)
         #model = Xception()
-        optimizer = Adam(lr=0.001, decay=0.0)
-        #optimizer = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
+        #optimizer = Adam(lr=0.001, decay=0.0)
+        optimizer = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(loss='binary_crossentropy', optimizer=optimizer,
                       metrics=['accuracy'])
 
-        earlyStopping = EarlyStopping(monitor='val_loss', patience=10,
+        earlyStopping = EarlyStopping(monitor='val_loss', patience=5,
                                       verbose=0, mode='min')
         ckpt = ModelCheckpoint('.model.hdf5', save_best_only=True,
                                monitor='val_loss', mode='min')
