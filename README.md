@@ -1,10 +1,5 @@
 # Kaggle Statoil/C-CORE Iceberg Classifier Challenge
 
-# Installation
-```
-pip install scikit-learn tensorflow Keras numpy pandas
-```
-
 # Usage
 inc_angleなし
 ```
