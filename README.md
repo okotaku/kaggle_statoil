@@ -6,12 +6,19 @@ pip install scikit-learn tensorflow Keras numpy pandas
 ```
 
 # Usage
+inc_angleなし
 ```
 python3 main.py
 ```
-modelのコメントアウトの部分を変えることでVGG16のfine tuningとSmallCNNを選択できる。
+modelのコメントアウトの部分で使用するモデルを変えることができる。
 
-# Report
+inc_angleあり
+```
+python3 main_angle.py
+```
+modelのコメントアウトの部分で使用するモデルを変えることができる。
+
+# Single Report
 - VGG16 Fine tuning
 
 5foldsで実験を行なった。
@@ -31,8 +38,8 @@ LB=0.2094
 5foldsで実験を行なった。
 Image Net 学習済みモデルを初期値として、freezeせずに学習(freeze_leyer=0)。
 
-folds number|val acc|val loss|
-|:--|:--:|:--:|:--:|
+|clossval number|val acc|val loss|
+|:--|:--:|:--:|
 |1|0.8949|0.3053|
 |2|0.9085| 0.2421|
 |3|0.9017|0.2322|
@@ -43,31 +50,38 @@ LB=0.1843
 
 - small cnn
 
-5foldsで実験を行なった。
+10foldsで実験を行なった。
 
 |clossval number|val acc|val loss|
 |:--|:--:|:--:|
-|1|0.9050|0.2123|
-|2|0.9186|0.1860|
-|3|0.9254|0.1668|
-|4|0.9317|0.2016|
-|5|0.8976|0.2896|
-
-LB=0.1722
+|1|0.9189 0.1681|
+|2|0.8716|0.2823|
+|3|0.9527|0.1158|
+|4|0.9252|0.2066|
+|5|0.9184|0.1633|
+|6|0.9592|0.1001|
+|7|0.9252|0.1764|
+|8|0.9252|0.1766|
+|9|0.8562|0.3545|
+|10|0.8835|0.2502|
 
 - vgg like
 
-5foldsで実験を行なった。
+10foldsで実験を行なった。
 
 |clossval number|val acc|val loss|
 |:--|:--:|:--:|
-|1|0.9186|0.2212|
-|2|0.9322|0.1937|
-|3|0.9389|0.2017|
-|4|0.5119|0.6928|
-|5|0.8634|0.3172|
+|1|0.9256|0.1632|
+|2|0.8649|0.2924|
+|3|0.9392|0.1532|
+|4|0.9184|0.2159|
+|5|0.9116|0.1930|
+|6|0.9456|0.1249|
+|7|0.9388|0.1530|
+|8|0.9320|0.1655|
+|9|0.8562|0.3960|
+|10|0.9041|0.2314|
 
-LB=0.1750
 
 - resnet like
 
@@ -96,3 +110,39 @@ LB=0.1804
 |5|0.8908|0.2620|
 
 LB=0.1747
+
+- small anglenet
+
+5foldsで実験を行なった。
+
+|clossval number|val acc|val loss|
+|:--|:--:|:--:|
+|1|0.8881|0.2301|
+|2|0.9186|0.2029|
+|3|0.9119|0.1711|
+|4|0.9181|0.2094|
+|5|0.9044|0.2713|
+
+- jirkamodel
+
+10foldsで実験を行なった。
+
+|clossval number|val acc|val loss|
+|:--|:--:|:--:|
+|1|0.9257|0.1789|
+|2|0.8919|0.3032|
+|3|0.9324|0.1518|
+|4|0.9116|0.1997|
+|5|0.9184|0.1856|
+|6|0.9320|0.1204|
+|7|0.9388|0.2018|
+|8|0.9456|0.1514|
+|9|0.8699|0.3710|
+|10|0.8973|0.2351|
+
+# Ensemble Report
+- - 7 models and https://www.kaggle.com/submarineering/submarineering-even-better-public-score-until-now ensemble
+  - 0.1381(private 0.1470)
+
+- 7 models and https://www.kaggle.com/submarineering/submarineering-even-better-public-score-until-now base ensemble and min max
+  - 0.1308(private 0.1562)
