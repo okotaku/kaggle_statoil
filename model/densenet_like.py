@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from keras.layers import Activation, Dense, Dropout, Flatten, Input, Concatenate
 from keras.layers import Conv2D, AveragePooling2D
-from keras.layers.merge import add
 from keras.layers.normalization import BatchNormalization
 from keras.models import Model
 

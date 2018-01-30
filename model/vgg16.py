@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from keras.applications.vgg16 import VGG16
-from keras.layers import Input, Dropout, Flatten, Dense
+from keras.layers import Input, Flatten, Dense
 from keras.layers.core import Activation
-from keras.models import Sequential, Model
+from keras.models import Model
 
 
 def Vgg16(freeze_leyer):
@@ -10,13 +10,12 @@ def Vgg16(freeze_leyer):
     vgg16 = VGG16(include_top=False, weights='imagenet',
                   input_tensor=input_tensor)
 
-    top_model = Sequential()
-    top_model.add(Flatten(input_shape=vgg16.output_shape[1:]))
-    top_model.add(Dense(256))
-    top_model.add(Activation('relu'))
-    top_model.add(Dense(1, activation='sigmoid'))
+    x = Flatten()(vgg16.output)
+    x = Dense(256)(x)
+    x = Activation('relu')(x)
+    x = Dense(1, activation='sigmoid')(x)
 
-    model = Model(input=vgg16.input, output=top_model(vgg16.output))
+    model = Model(input=vgg16.input, output=x)
     if freeze_leyer > 0:
         for layer in model.layers[:freeze_leyer]:
             layer.trainable = False
